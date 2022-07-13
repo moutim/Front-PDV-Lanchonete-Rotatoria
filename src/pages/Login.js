@@ -1,3 +1,4 @@
+/* eslint-disable quote-props */
 import React, { useState } from 'react';
 import api from '../utils/axios';
 
@@ -13,6 +14,7 @@ function Login() {
   const login = async (emailAndPasswordObject) => {
     try {
       const { data: { token } } = await api.post('/login', emailAndPasswordObject);
+      setErrorMessage(token);
       console.log(token);
       localStorage.setItem('token', token);
     } catch (e) {
@@ -32,7 +34,7 @@ function Login() {
         <input id="senha" type="password" onChange={handlePassword} value={password} />
       </label>
 
-      <button type="button" onClick={() => login({ user: username, password })}>Login</button>
+      <button type="button" onClick={() => login({ 'user': username, 'password': password })}>Login</button>
 
       {
         errorMessage && <p>{`${errorMessage}`}</p>
